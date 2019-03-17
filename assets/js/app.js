@@ -1,15 +1,23 @@
+// Text DOM
+//-------------------------------------------------------
+var age_impact_text = d3.select("#age-impact");
+var poverty_impact_text = d3.select("#poverty-impact");
+var income_impact_text = d3.select("#income-impact");
+
+var xAxisValue = d3.select("#x-axis-value");
+
 // Set up SVG and Chart group
 //-------------------------------------------------------
 // Define SVG area dimensions
-var svgWidth = 960;
-var svgHeight = 600;
+var svgWidth = 640;
+var svgHeight = 560;
 
 // Define the chart's margins as an object
 var margin = {
     top: 20,
-    right: 40,
+    right: 20,
     bottom: 100,
-    left: 100
+    left: 80
 };
 
 // Define dimensions of the chart area
@@ -29,6 +37,7 @@ var chartGroup = svg.append("g")
 // Initial Params
 var chosenXAxis = "age";
 var chosenYAxis = "smokes";
+xAxisValue.text(chosenXAxis);
 
 // X and Y Axis Dynamical Generator
 //-------------------------------------------------------
@@ -211,19 +220,30 @@ d3.csv("assets/data/data.csv").then(function(healthData) {
 
                 circlesGroup = updateToolTip(chosenXAxis,chosenYAxis,circlesGroup);
 
+                xAxisValue.text(chosenXAxis);
+
                 // Update the label "active" versus "inactive". 
                 if (chosenXAxis === "age") {
                     ageLabel.classed("active",true).classed("inactive",false);
                     povertyLabel.classed("active",false).classed("inactive",true);
                     incomeLabel.classed("active",false).classed("inactive",true);
+                    age_impact_text.classed("show",true).classed("hide",false);
+                    poverty_impact_text.classed("show",false).classed("hide",true);
+                    income_impact_text.classed("show",false).classed("hide",true);
                 } else if (chosenXAxis === "poverty") {
                     ageLabel.classed("active",false).classed("inactive",true);
                     povertyLabel.classed("active",true).classed("inactive",false);
                     incomeLabel.classed("active",false).classed("inactive",true);
+                    age_impact_text.classed("show",false).classed("hide",true);
+                    poverty_impact_text.classed("show",true).classed("hide",false);
+                    income_impact_text.classed("show",false).classed("hide",true);
                 } else {
                     ageLabel.classed("active",false).classed("inactive",true);
                     povertyLabel.classed("active",false).classed("inactive",true);
                     incomeLabel.classed("active",true).classed("inactive",false);
+                    age_impact_text.classed("show",false).classed("hide",true);
+                    poverty_impact_text.classed("show",false).classed("hide",true);
+                    income_impact_text.classed("show",true).classed("hide",false);
                 }
             }
         });
